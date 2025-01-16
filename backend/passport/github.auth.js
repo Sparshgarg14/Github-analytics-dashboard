@@ -4,6 +4,9 @@ import { Strategy as GitHubStrategy } from "passport-github2";
 import User from "../models/user.model.js";
 
 dotenv.config();
+// console.log(process.env);
+// console.log("GITHUB_CLIENT_ID:", process.env.GITHUB_CLIENT_ID);
+// console.log("GITHUB_CLIENT_SECRET",process.env.GITHUB_CLIENT_SECRET)
 
 passport.serializeUser(function (user, done) {
 	done(null, user);
@@ -22,7 +25,7 @@ passport.use(
 		{
 			clientID: process.env.GITHUB_CLIENT_ID,
 			clientSecret: process.env.GITHUB_CLIENT_SECRET,
-			callbackURL: "https://mern-github-app.onrender.com/api/auth/github/callback",
+			callbackURL: "http://localhost:5000/api/auth/github/callback",
 		},
 		async function (accessToken, refreshToken, profile, done) {
 			const user = await User.findOne({ username: profile.username });
